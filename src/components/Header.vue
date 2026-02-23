@@ -6,15 +6,12 @@
       <h1 class="text-black1 text-[20px] font-bold">CardSwap</h1>
     </RouterLink>
 
-    <button
-      class="bg-black1 text-white1 flex h-8 items-center justify-center rounded-md p-3 text-[12px] font-medium"
-    >
-      Entrar
-    </button>
+    <Button>Entrar</Button>
   </header>
 </template>
 
 <script lang="ts" setup>
+import Button from './Button.vue'
 import Logo from './icons/Logo.vue'
 </script>
 

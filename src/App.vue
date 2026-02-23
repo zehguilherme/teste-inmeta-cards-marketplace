@@ -1,5 +1,5 @@
 <template>
-  <div class="font-display">
+  <div class="font-display h-screen">
     <Header />
 
     <Home />

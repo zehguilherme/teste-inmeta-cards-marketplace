@@ -1,0 +1,21 @@
+<template>
+  <header class="border-b-gray1 flex items-center justify-between border border-x-0 border-t-0 p-4">
+    <RouterLink to="/" class="flex items-center gap-2">
+      <Logo class="text-black1 h-6 w-6" />
+
+      <h1 class="text-black1 text-[20px] font-bold">CardSwap</h1>
+    </RouterLink>
+
+    <button
+      class="bg-black1 text-white1 flex h-8 items-center justify-center rounded-md p-3 text-[12px] font-medium"
+    >
+      Entrar
+    </button>
+  </header>
+</template>
+
+<script lang="ts" setup>
+import Logo from './icons/Logo.vue'
+</script>
+
+<style></style>

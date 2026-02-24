@@ -1,17 +1,29 @@
 <template>
   <div>
-    <h3 class="text-gray2 mb-3 text-[10px] font-bold uppercase">{{ actionText }}</h3>
+    <h3 class="text-gray2 mb-3 text-[10px] font-bold uppercase">{{ textoAcaoTraduzido }}</h3>
 
-    <img src="https://placehold.co/112x160" alt="Imagem de uma carta" class="rounded-lg" />
+    <img :src="imageUrl" :alt="imageAlternativeText" class="max-w-50 rounded-lg" />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
+
 interface CardHomeProps {
-  actionText: 'Dá' | 'Recebe'
+  actionText: 'OFFERING' | 'RECEIVING'
+  imageUrl: string
+  imageAlternativeText: string
 }
 
-withDefaults(defineProps<CardHomeProps>(), {})
+const props = defineProps<CardHomeProps>()
+
+const textoAcaoTraduzido = computed(() => {
+  if (props.actionText === 'OFFERING') {
+    return 'Oferecendo'
+  } else {
+    return 'Recebendo'
+  }
+})
 </script>
 
 <style></style>

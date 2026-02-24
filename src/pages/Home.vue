@@ -16,15 +16,19 @@
       </header>
 
       <main class="flex flex-col gap-4">
-        <SwapSolicitation
-          v-for="solicitacao in listaSolicitacoesTrocaComputed"
-          :key="solicitacao.id"
-          :id="solicitacao.id"
-          :user-id="solicitacao.userId"
-          :created-at="solicitacao.createdAt"
-          :user="solicitacao.user"
-          :trade-cards="solicitacao.tradeCards"
-        />
+        <template v-if="listaSolicitacoesTrocaComputed.length > 0">
+          <SwapSolicitation
+            v-for="solicitacao in listaSolicitacoesTrocaComputed"
+            :key="solicitacao.id"
+            :id="solicitacao.id"
+            :user-id="solicitacao.userId"
+            :created-at="solicitacao.createdAt"
+            :user="solicitacao.user"
+            :trade-cards="solicitacao.tradeCards"
+          />
+        </template>
+
+        <NoSwapSolicitations v-else message="Ainda não há solicitações de troca" />
       </main>
     </div>
   </div>
@@ -36,6 +40,7 @@ import axios from 'axios'
 
 import SwapSolicitation from '@/components/SwapSolicitation.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
+import NoSwapSolicitations from '@/components/NoSwapSolicitations.vue'
 import type { Trade } from '@/types/Trade'
 
 interface TradeListResponse {

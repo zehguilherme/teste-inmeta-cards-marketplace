@@ -41,6 +41,7 @@ import axios from 'axios'
 import SwapSolicitation from '@/components/SwapSolicitation.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
 import NoSwapSolicitations from '@/components/NoSwapSolicitations.vue'
+import { useLoadingStore } from '@/stores/loading'
 import type { Trade } from '@/types/Trade'
 
 interface TradeListResponse {
@@ -56,8 +57,12 @@ const mensagemErro = ref<string>('')
 
 const listaSolicitacoesTroca = ref<Trade[]>([])
 
+const loadingStore = useLoadingStore()
+
 const carregarSolicitacoesTroca = async () => {
   try {
+    loadingStore.exibir()
+
     const response = await axios.get<TradeListResponse>(
       `${import.meta.env.VITE_API_URL}/trades?rpp=10&page=1`,
     )
@@ -80,6 +85,8 @@ const carregarSolicitacoesTroca = async () => {
       error instanceof Error
         ? error.message
         : 'Ocorreu um erro desconhecido ao carregar as solicitações de troca'
+  } finally {
+    loadingStore.esconder()
   }
 }
 

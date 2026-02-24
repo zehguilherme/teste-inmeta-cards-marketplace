@@ -1,12 +1,16 @@
 <template>
-  <header class="border-b-gray1 flex items-center justify-between border border-x-0 border-t-0 p-4">
-    <RouterLink to="/" class="flex items-center gap-2">
-      <Logo class="text-black1 h-6 w-6" />
+  <header class="border-b-gray1 border border-x-0 border-t-0 bg-white p-4">
+    <div class="mx-auto max-w-342">
+      <nav class="flex items-center justify-between">
+        <RouterLink to="/" class="flex items-center gap-2">
+          <Logo class="text-black1 h-6 w-6" />
 
-      <h1 class="text-black1 text-[20px] font-bold">CardSwap</h1>
-    </RouterLink>
+          <p class="text-black1 text-[20px] font-bold">CardSwap</p>
+        </RouterLink>
 
-    <Button>Entrar</Button>
+        <Button>Entrar</Button>
+      </nav>
+    </div>
   </header>
 </template>
 

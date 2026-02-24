@@ -1,0 +1,23 @@
+<template>
+  <svg
+    v-bind="$attrs"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+    class="animate-spin"
+  >
+    <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+    <path d="M22 12a10 10 0 0 1-10 10" />
+  </svg>
+</template>
+
+<script lang="ts" setup>
+// no logic necessary
+</script>
+
+<style></style>

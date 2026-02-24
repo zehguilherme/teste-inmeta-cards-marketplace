@@ -2,7 +2,7 @@
   <div>
     <h3 class="text-gray2 mb-3 text-[10px] font-bold uppercase">{{ textoAcaoTraduzido }}</h3>
 
-    <img :src="imageUrl" :alt="imageAlternativeText" class="max-w-50 rounded-lg" />
+    <img :src="imageUrl" :alt="imageAlternativeText" class="w-full max-w-50 rounded-lg" />
   </div>
 </template>
 

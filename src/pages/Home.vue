@@ -78,13 +78,15 @@ const carregarSolicitacoesTroca = async () => {
 
     listaSolicitacoesTroca.value = response.data.list
   } catch (error) {
-    modalErroAberta.value = true
+    if (axios.isAxiosError(error)) {
+      modalErroAberta.value = true
 
-    tituloErro.value = 'Erro'
-    mensagemErro.value =
-      error instanceof Error
-        ? error.message
-        : 'Ocorreu um erro desconhecido ao carregar as solicitações de troca'
+      tituloErro.value = 'Erro'
+
+      mensagemErro.value =
+        error.response?.data?.message ||
+        'Ocorreu um erro desconhecido ao carregar as solicitações de troca'
+    }
   } finally {
     loadingStore.esconder()
   }

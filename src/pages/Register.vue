@@ -154,16 +154,14 @@ const cadastrarUsuario = async (values: GenericObject | User) => {
 
     router.push('/login')
   } catch (error) {
-    modalErroAberta.value = true
-
-    tituloErro.value = 'Erro'
-
     if (axios.isAxiosError(error)) {
+      modalErroAberta.value = true
+
+      tituloErro.value = 'Erro'
+
       mensagemErro.value =
         error.response?.data?.message ||
         'Ocorreu um erro ao cadastrar o usuário! Verifique os dados e tente novamente!'
-
-      return
     }
   } finally {
     loadingStore.esconder()

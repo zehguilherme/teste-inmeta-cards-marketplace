@@ -10,7 +10,7 @@ Clique [aqui](https://mature-crowberry-3fc.notion.site/Teste-INMETA-Front-End-Pl
 
 ## Funcionalidades esperadas
 
-- [ ] Usuário deve poder se registrar
+- [x] Usuário deve poder se registrar
 - [ ] Usuário deve poder fazer login
 - [ ] O usuário pode adicionar cartas a sua própria conta
 - [ ] O usuário pode criar uma solicitação de troca
@@ -60,6 +60,8 @@ Nenhum desses requisitos é obrigatório, mas são desejados e podem ser um dife
 - [Axios](https://axios-http.com) - Biblioteca para fazer requisições HTTP
 - [date-fns](https://date-fns.org) - Biblioteca para manipulação de datas
 - [Pinia](https://pinia.vuejs.org) - Biblioteca para gerenciamento de estado
+- [VeeValidate](https://vee-validate.logaretm.com) - Biblioteca para validação de formulários
+- [Yup](https://www.npmjs.com/package/yup) - Biblioteca para construção de esquemas de validação e análise de valores
 
 ## Layout
 

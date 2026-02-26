@@ -2,8 +2,6 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-import { useLoadingStore } from './loading'
-
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })
@@ -40,8 +38,6 @@ interface RespostaAuth {
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const loadingStore = useLoadingStore()
-
   const usuario = ref<Usuario | null>(null)
 
   const token = ref<string | null>(localStorage.getItem('auth_token'))
@@ -65,8 +61,6 @@ export const useAuthStore = defineStore('auth', () => {
 
   const login = async (credenciais: CredenciaisLogin) => {
     try {
-      loadingStore.exibir('Realizando login...')
-
       const { data } = await api.post<RespostaAuth>('/login', credenciais)
 
       definirToken(data.token)
@@ -80,15 +74,11 @@ export const useAuthStore = defineStore('auth', () => {
       usuario.value = null
 
       throw error
-    } finally {
-      loadingStore.esconder()
     }
   }
 
   const cadastrarUsuario = async (dados: DadosRegistro) => {
     try {
-      loadingStore.exibir('Criando conta...')
-
       const { data } = await api.post<RespostaAuth>('/register', dados)
 
       definirToken(data.token)
@@ -102,8 +92,6 @@ export const useAuthStore = defineStore('auth', () => {
       usuario.value = null
 
       throw error
-    } finally {
-      loadingStore.esconder()
     }
   }
 
@@ -120,8 +108,6 @@ export const useAuthStore = defineStore('auth', () => {
     if (!token.value) return
 
     try {
-      loadingStore.exibir('Carregando usuário...')
-
       const { data } = await api.get<Usuario>('/me', {
         headers: {
           Authorization: `Bearer ${token.value}`,
@@ -131,8 +117,6 @@ export const useAuthStore = defineStore('auth', () => {
       usuario.value = data
     } catch {
       logout()
-    } finally {
-      loadingStore.esconder()
     }
   }
 

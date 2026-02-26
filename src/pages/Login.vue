@@ -72,6 +72,7 @@ import { useRouter } from 'vue-router'
 import { Form, type FormMeta, type GenericObject } from 'vee-validate'
 import * as yup from 'yup'
 import { useToast } from 'vue-toastification'
+import { AxiosError } from 'axios'
 
 import Button from '@/components/Button.vue'
 import Input from '@/components/form/Input.vue'
@@ -118,6 +119,8 @@ const formularioEstaValido = (
 
 const logarUsuario = async (values: GenericObject | User) => {
   try {
+    loadingStore.exibir('Realizando login...')
+
     const loginRealizadoComSucesso = await authStore.login({
       email: values.email,
       password: values.password,
@@ -140,13 +143,19 @@ const logarUsuario = async (values: GenericObject | User) => {
 
     router.push('/')
   } catch (error) {
-    if (error instanceof Error) {
-      modalErroAberta.value = true
+    modalErroAberta.value = true
 
-      tituloErro.value = 'Erro'
+    tituloErro.value = 'Erro'
 
+    if (error instanceof AxiosError) {
+      mensagemErro.value =
+        error.response?.data?.message ||
+        'Ocorreu um erro ao logar! Verifique os dados e tente novamente!'
+    } else if (error instanceof Error) {
       mensagemErro.value =
         error.message || 'Ocorreu um erro ao logar! Verifique os dados e tente novamente!'
+    } else {
+      mensagemErro.value = 'Ocorreu um erro ao logar! Verifique os dados e tente novamente!'
     }
   } finally {
     loadingStore.esconder()

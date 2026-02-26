@@ -65,9 +65,10 @@ Nenhum desses requisitos é obrigatório, mas são desejados e podem ser um dife
 
 ## Layout
 
-O layout foi criado utilizando a inteligência artificial [Replit](https://replit.com), e você pode acessá-lo [aqui](https://cards-marketplace--zehguilherme.replit.app).
+- O layout foi criado utilizando a inteligência artificial [Replit](https://replit.com), e você pode acessá-lo [aqui](https://replit.com/@zehguilherme/Cards-Marketplace).
+- A versão final do site gerado pela IA pode ser acessada [aqui](https://cards-marketplace--zehguilherme.replit.app/).
 
-_PS: Alguns pontos dele foram modificados para melhor atender as necessidades do projeto, mas a essência do design foi mantida._
+_PS: Alguns pontos do design foram modificados para melhor atender as necessidades do projeto, mas a essência do design foi mantida._
 
 ## 🚀 Começando
 

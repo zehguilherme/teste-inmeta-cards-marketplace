@@ -2,24 +2,11 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
+import type { User } from '@/types/User'
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 })
-
-export interface Card {
-  id: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt: string
-}
-
-export interface Usuario {
-  id: string
-  name: string
-  email: string
-  cards: Card[]
-}
 
 interface CredenciaisLogin {
   email: string
@@ -34,11 +21,11 @@ interface DadosRegistro {
 
 interface RespostaAuth {
   token: string
-  user: Usuario
+  user: User
 }
 
 export const useAuthStore = defineStore('auth', () => {
-  const usuario = ref<Usuario | null>(null)
+  const usuario = ref<User | null>(null)
 
   const token = ref<string | null>(localStorage.getItem('auth_token'))
 
@@ -108,7 +95,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (!token.value) return
 
     try {
-      const { data } = await api.get<Usuario>('/me', {
+      const { data } = await api.get<User>('/me', {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },

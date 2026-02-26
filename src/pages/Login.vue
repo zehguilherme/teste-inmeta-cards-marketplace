@@ -136,7 +136,7 @@ const logarUsuario = async (values: GenericObject | User) => {
       return
     }
 
-    toast.success(`Seja bem vindo ${authStore.usuario?.name}!`)
+    toast.success(`Seja bem-vindo(a) ${authStore.usuario?.name}!`)
 
     modelEmail.value = ''
     modelSenha.value = ''

@@ -1,5 +1,5 @@
 <template>
-  <main class="flex h-screen flex-col items-center justify-center gap-8 bg-white px-4 py-8">
+  <main class="flex flex-1 flex-col items-center justify-center gap-8 bg-white px-4 py-8">
     <ErrorModal
       v-model:model-value="modalErroAberta"
       :titulo="tituloErro"

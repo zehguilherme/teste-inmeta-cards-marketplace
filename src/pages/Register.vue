@@ -81,7 +81,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Form, type FormMeta, type GenericObject } from 'vee-validate'
 import * as yup from 'yup'
-import axios from 'axios'
+import { AxiosError } from 'axios'
 import { useToast } from 'vue-toastification'
 
 import Button from '@/components/Button.vue'
@@ -89,6 +89,7 @@ import Input from '@/components/form/Input.vue'
 import Logo from '@/components/icons/Logo.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
 import { useLoadingStore } from '@/stores/loading'
+import { useAuthStore } from '@/stores/auth'
 
 const modelNome = ref('')
 const modelEmail = ref('')
@@ -99,6 +100,7 @@ const tituloErro = ref<string>('')
 const mensagemErro = ref<string>('')
 
 const loadingStore = useLoadingStore()
+const authStore = useAuthStore()
 
 const router = useRouter()
 
@@ -129,15 +131,15 @@ const formularioEstaValido = (
 
 const cadastrarUsuario = async (values: GenericObject | User) => {
   try {
-    loadingStore.exibir()
+    loadingStore.exibir('Criando conta...')
 
-    const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, {
+    const cadastroRealizadoComSucesso = await authStore.cadastrarUsuario({
       name: values.name,
       email: values.email,
       password: values.password,
     })
 
-    if (response.status !== 201) {
+    if (!cadastroRealizadoComSucesso) {
       modalErroAberta.value = true
 
       tituloErro.value = 'Erro'
@@ -154,13 +156,20 @@ const cadastrarUsuario = async (values: GenericObject | User) => {
 
     router.push('/login')
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      modalErroAberta.value = true
+    modalErroAberta.value = true
 
-      tituloErro.value = 'Erro'
+    tituloErro.value = 'Erro'
 
+    if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message ||
+        'Ocorreu um erro ao cadastrar o usuário! Verifique os dados e tente novamente!'
+    } else if (error instanceof Error) {
+      mensagemErro.value =
+        error.message ||
+        'Ocorreu um erro ao cadastrar o usuário! Verifique os dados e tente novamente!'
+    } else {
+      mensagemErro.value =
         'Ocorreu um erro ao cadastrar o usuário! Verifique os dados e tente novamente!'
     }
   } finally {

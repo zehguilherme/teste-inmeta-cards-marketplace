@@ -25,17 +25,30 @@
             <span class="text-[14px] font-medium">{{ authStore.usuario?.name }}</span>
           </span>
 
-          <Button v-if="usuarioEstaLogado" variant="ghost" @click="authStore.logout">
+          <Button
+            v-if="usuarioEstaLogado"
+            variant="ghost"
+            @click="authStore.logout"
+            class="text-gray2"
+          >
             <template v-slot:icon>
-              <Logout class="text-gray2 h-4 w-4" />
+              <Logout class="h-4 w-4" />
             </template>
+
+            Sair
           </Button>
 
-          <Button v-if="!usuarioEstaLogado" @click="() => router.push('/login')">Entrar</Button>
+          <div class="flex items-center gap-4">
+            <Button v-if="!usuarioEstaLogado" @click="() => router.push('/login')">Entrar</Button>
 
-          <Button v-if="!usuarioEstaLogado" variant="ghost" @click="() => router.push('/cadastro')">
-            Cadastrar
-          </Button>
+            <Button
+              v-if="!usuarioEstaLogado"
+              variant="ghost"
+              @click="() => router.push('/cadastro')"
+            >
+              Cadastrar
+            </Button>
+          </div>
         </div>
       </nav>
     </div>

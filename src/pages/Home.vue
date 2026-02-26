@@ -36,7 +36,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 import SwapSolicitation from '@/components/SwapSolicitation.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
@@ -71,21 +71,20 @@ const carregarSolicitacoesTroca = async () => {
       modalErroAberta.value = true
 
       tituloErro.value = 'Erro'
-      mensagemErro.value = `Ocorreu um erro ao carregar as solicitações de troca: ${response.statusText}`
+      mensagemErro.value = 'Ocorreu um erro ao carregar as solicitações de troca!'
 
       return
     }
 
     listaSolicitacoesTroca.value = response.data.list
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      modalErroAberta.value = true
-
-      tituloErro.value = 'Erro'
-
+    if (error instanceof AxiosError) {
       mensagemErro.value =
-        error.response?.data?.message ||
-        'Ocorreu um erro desconhecido ao carregar as solicitações de troca'
+        error.response?.data?.message || 'Ocorreu um erro ao carregar as solicitações de troca!'
+    } else if (error instanceof Error) {
+      mensagemErro.value = error.message || 'Ocorreu um erro ao carregar as solicitações de troca!'
+    } else {
+      mensagemErro.value = 'Ocorreu um erro ao carregar as solicitações de troca!'
     }
   } finally {
     loadingStore.esconder()

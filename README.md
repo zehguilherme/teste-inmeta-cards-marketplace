@@ -11,7 +11,7 @@ Clique [aqui](https://mature-crowberry-3fc.notion.site/Teste-INMETA-Front-End-Pl
 ## Funcionalidades esperadas
 
 - [x] Usuário deve poder se registrar
-- [ ] Usuário deve poder fazer login
+- [x] Usuário deve poder fazer login
 - [ ] O usuário pode adicionar cartas a sua própria conta
 - [ ] O usuário pode criar uma solicitação de troca
   - [ ] Ele deve escolher quais cartas da sua conta que pretende oferecer

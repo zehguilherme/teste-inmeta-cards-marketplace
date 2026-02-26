@@ -1,8 +1,10 @@
 <template>
   <button v-bind="attrs" :disabled="isDisabled" :class="classes">
-    <span v-if="loading">Carregando...</span>
+    <span v-if="$slots.icon" class="mr-2 flex items-center">
+      <slot name="icon" />
+    </span>
 
-    <slot v-else />
+    <slot />
   </button>
 </template>
 
@@ -13,7 +15,6 @@ import type { ButtonHTMLAttributes } from 'vue'
 type ButtonVariant = 'primary' | 'ghost'
 
 interface OwnProps {
-  loading?: boolean
   disabled?: boolean
   variant?: ButtonVariant
 }
@@ -21,7 +22,6 @@ interface OwnProps {
 type ButtonProps = OwnProps & /* @vue-ignore */ ButtonHTMLAttributes
 
 const props = withDefaults(defineProps<ButtonProps>(), {
-  loading: false,
   disabled: false,
   variant: 'primary',
 })
@@ -33,7 +33,7 @@ const variantClasses: Record<ButtonVariant, string> = {
   ghost: 'bg-transparent text-black1 hover:opacity-70',
 }
 
-const isDisabled = computed(() => props.disabled || props.loading)
+const isDisabled = computed(() => props.disabled)
 
 const classes = computed(() => {
   return [

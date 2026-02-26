@@ -1,26 +1,25 @@
 <template>
   <Loading />
 
-  <div class="font-display h-screen">
-    <Header v-if="exibirHeader" />
+  <div class="font-display flex h-screen flex-col">
+    <Header />
 
     <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
-import { computed } from 'vue'
+import { onMounted } from 'vue'
 
 import Header from './components/Header.vue'
 import Loading from './components/Loading.vue'
 
-const router = useRouter()
+import { useAuthStore } from '@/stores/auth'
 
-const exibirHeader = computed(() => {
-  const rotasSemHeader = ['/cadastro', '/login']
+const authStore = useAuthStore()
 
-  return !rotasSemHeader.includes(router.currentRoute.value.path)
+onMounted(() => {
+  authStore.carregarUsuarioAutenticado()
 })
 </script>
 

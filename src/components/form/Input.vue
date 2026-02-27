@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ErrorMessage, Field, type RuleExpression } from 'vee-validate'
+import { ErrorMessage, Field } from 'vee-validate'
 
 type InputType = 'text' | 'number' | 'email' | 'password' | 'search' | 'tel' | 'url'
 

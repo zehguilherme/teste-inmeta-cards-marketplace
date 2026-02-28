@@ -81,7 +81,7 @@ const router = useRouter()
 
 const carregarTodasCartasExistentes = async () => {
   try {
-    loadingStore.exibir()
+    loadingStore.exibir('Carregando cartas...')
 
     const response = await axios.get<CardsListResponse>(
       `${import.meta.env.VITE_API_URL}/cards?rpp=9999&page=1`,

@@ -14,6 +14,11 @@
           <p class="text-gray2 text-[16px]">
             Escolha uma ou mais cartas para adicionar ao seu acervo.
           </p>
+
+          <p class="text-gray2 mt-2 text-[16px]">
+            Você selecionou {{ listaCartasSelecionadas.length }}
+            {{ listaCartasSelecionadas.length === 1 ? 'carta' : 'cartas' }}.
+          </p>
         </div>
 
         <Button

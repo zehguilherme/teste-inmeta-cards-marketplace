@@ -9,7 +9,13 @@
         </RouterLink>
 
         <div class="flex flex-col items-center gap-4 sm:flex-row">
-          <Button v-if="usuarioEstaLogado" variant="ghost">Minhas cartas</Button>
+          <Button
+            v-if="usuarioEstaLogado"
+            variant="ghost"
+            @click="() => router.push('/minhas-cartas')"
+          >
+            Minhas cartas
+          </Button>
 
           <Button v-if="usuarioEstaLogado">
             <template v-slot:icon>

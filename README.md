@@ -12,7 +12,7 @@ Clique [aqui](https://mature-crowberry-3fc.notion.site/Teste-INMETA-Front-End-Pl
 
 - [x] Usuário deve poder se registrar
 - [x] Usuário deve poder fazer login
-- [ ] O usuário pode adicionar cartas a sua própria conta
+- [x] O usuário pode adicionar cartas a sua própria conta
 - [ ] O usuário pode criar uma solicitação de troca
   - [ ] Ele deve escolher quais cartas da sua conta que pretende oferecer
   - [ ] Deve poder escolher entre todas as cartas registradas quais ele quer receber

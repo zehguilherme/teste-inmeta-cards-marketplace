@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../pages/Home.vue'
 import Register from '../pages/Register.vue'
 import Login from '../pages/Login.vue'
+import UserCards from '../pages/UserCards.vue'
+import NewCard from '../pages/NewCard.vue'
 
 const routes = [
   {
@@ -16,6 +18,14 @@ const routes = [
   {
     path: '/login',
     component: Login,
+  },
+  {
+    path: '/minhas-cartas',
+    component: UserCards,
+  },
+  {
+    path: '/minhas-cartas/nova-carta',
+    component: NewCard,
   },
 ]
 

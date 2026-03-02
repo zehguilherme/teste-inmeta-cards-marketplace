@@ -9,7 +9,7 @@
     <div class="mx-auto max-w-342">
       <header class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div class="mb-2 flex flex-col gap-2 sm:mb-0">
-          <h1 class="text-black2 text-3xl font-bold">Nova carta</h1>
+          <h1 class="text-black2 text-3xl font-bold">Nova Carta</h1>
 
           <p class="text-gray2 text-[16px]">
             Escolha uma ou mais cartas para adicionar ao seu acervo.
@@ -32,7 +32,7 @@
 
       <main class="flex flex-wrap items-center justify-center gap-4 md:justify-start">
         <label
-          v-for="carta in listaTodasCartasExistentes"
+          v-for="carta in listaTodasCartasExcetoAsQueUsuarioJaPossui"
           :key="carta.id"
           class="w-full max-w-50 cursor-pointer rounded-lg hover:border-4 hover:border-red-700 hover:p-2"
           :class="listaCartasSelecionadas.includes(carta.id) && 'border-4 border-red-700 p-2'"
@@ -75,7 +75,7 @@ const tituloErro = ref<string>('')
 const mensagemErro = ref<string>('')
 
 const listaCartasSelecionadas = ref<string[]>([])
-const listaTodasCartasExistentes = ref<Card[]>([])
+const listaTodasCartasExcetoAsQueUsuarioJaPossui = ref<Card[]>([])
 
 const loadingStore = useLoadingStore()
 const authStore = useAuthStore()
@@ -101,7 +101,13 @@ const carregarTodasCartasExistentes = async () => {
       return
     }
 
-    listaTodasCartasExistentes.value = response.data.list
+    const listaTodasCartasExistentes = response.data.list
+
+    const userCardIds = authStore.usuario?.cards.map((carta) => carta.id) || []
+
+    listaTodasCartasExcetoAsQueUsuarioJaPossui.value = listaTodasCartasExistentes.filter(
+      (carta) => !userCardIds.includes(carta.id),
+    )
   } catch (error) {
     if (error instanceof AxiosError) {
       mensagemErro.value =

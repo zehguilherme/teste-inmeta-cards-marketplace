@@ -12,15 +12,15 @@
     />
 
     <div class="mx-auto max-w-342">
-      <header class="mb-10 flex flex-col gap-2">
+      <div class="mb-10 flex flex-col gap-2">
         <h1 class="text-black2 text-3xl font-bold">Marketplace</h1>
 
         <p class="text-gray2 text-[16px]">
           Explore as solicitações de troca abertas pela comunidade.
         </p>
-      </header>
+      </div>
 
-      <main class="flex flex-col gap-4">
+      <section class="flex flex-col gap-4">
         <template v-if="listaSolicitacoesTrocaComputed.length > 0">
           <SwapSolicitation
             v-for="solicitacao in listaSolicitacoesTrocaComputed"
@@ -35,7 +35,7 @@
         </template>
 
         <NoSwapSolicitations v-else message="Ainda não há solicitações de troca" />
-      </main>
+      </section>
     </div>
   </div>
 </template>

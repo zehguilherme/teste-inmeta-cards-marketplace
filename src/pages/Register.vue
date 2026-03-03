@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-1 flex-col items-center justify-center gap-8 bg-white px-4 py-8">
+  <div class="flex flex-1 flex-col items-center justify-center gap-8 bg-white px-4 py-8">
     <ErrorModal
       v-model:model-value="modalErroAberta"
       :titulo="tituloErro"
@@ -73,7 +73,7 @@
         Já tem uma conta? Entre aqui
       </RouterLink>
     </section>
-  </main>
+  </div>
 </template>
 
 <script lang="ts" setup>

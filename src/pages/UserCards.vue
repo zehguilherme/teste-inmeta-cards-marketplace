@@ -7,7 +7,7 @@
     />
 
     <div class="mx-auto max-w-342">
-      <header class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div class="mb-2 flex flex-col gap-2 sm:mb-0">
           <h1 class="text-black2 text-3xl font-bold">Minhas Cartas</h1>
 
@@ -26,9 +26,9 @@
 
           Nova Carta
         </Button>
-      </header>
+      </div>
 
-      <main class="flex flex-col gap-4">
+      <section class="flex flex-col gap-4">
         <template v-if="listaCartas?.length > 0">
           <div class="flex flex-wrap items-center justify-center gap-4 md:justify-start">
             <img
@@ -36,13 +36,14 @@
               :key="carta.id"
               :src="carta.imageUrl"
               :alt="carta.description"
+              loading="lazy"
               class="w-full max-w-50 rounded-lg"
             />
           </div>
         </template>
 
         <NoUserCards v-else />
-      </main>
+      </section>
     </div>
   </div>
 </template>

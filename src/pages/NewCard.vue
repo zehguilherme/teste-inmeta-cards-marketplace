@@ -161,8 +161,8 @@ const adicionarCartaListaUsuario = async () => {
   }
 }
 
-onMounted(() => {
-  carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+onMounted(async () => {
+  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
 })
 </script>
 

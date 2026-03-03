@@ -169,8 +169,8 @@ const criarNovaSolicitacaoTroca = async () => {
   }
 }
 
-onMounted(() => {
-  carregarTodasCartasExistentes()
+onMounted(async () => {
+  await carregarTodasCartasExistentes()
 })
 </script>
 

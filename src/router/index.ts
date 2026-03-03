@@ -5,6 +5,7 @@ import Register from '../pages/Register.vue'
 import Login from '../pages/Login.vue'
 import UserCards from '../pages/UserCards.vue'
 import NewCard from '../pages/NewCard.vue'
+import NewTrade from '../pages/NewTrade.vue'
 
 const routes = [
   {
@@ -26,6 +27,10 @@ const routes = [
   {
     path: '/minhas-cartas/nova-carta',
     component: NewCard,
+  },
+  {
+    path: '/nova-troca',
+    component: NewTrade,
   },
 ]
 

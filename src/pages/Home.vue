@@ -64,7 +64,7 @@ const carregarSolicitacoesTroca = async () => {
     loadingStore.exibir('Carregando solicitações de troca...')
 
     const response = await axios.get<TradeListResponse>(
-      `${import.meta.env.VITE_API_URL}/trades?rpp=10&page=1`,
+      `${import.meta.env.VITE_API_URL}/trades?rpp=9999&page=1`,
     )
 
     if (response.status !== 200) {

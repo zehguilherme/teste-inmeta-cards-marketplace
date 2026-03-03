@@ -17,12 +17,12 @@
             Minhas cartas
           </Button>
 
-          <Button v-if="usuarioEstaLogado">
+          <Button v-if="usuarioEstaLogado" @click="() => router.push('/nova-troca')">
             <template v-slot:icon>
               <PlusCircle class="h-4 w-4" />
             </template>
 
-            Nova solicitação de troca
+            Nova Troca
           </Button>
 
           <span v-if="usuarioEstaLogado" class="text-gray2 flex items-center gap-2">

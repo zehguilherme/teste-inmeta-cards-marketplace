@@ -12,7 +12,7 @@
 import { computed, useAttrs } from 'vue'
 import type { ButtonHTMLAttributes } from 'vue'
 
-type ButtonVariant = 'primary' | 'ghost'
+type ButtonVariant = 'primary' | 'ghost' | 'danger'
 
 interface OwnProps {
   disabled?: boolean
@@ -30,7 +30,8 @@ const attrs = useAttrs()
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary: 'bg-black1 text-white1 hover:opacity-70',
-  ghost: 'bg-transparent text-black1 hover:opacity-70',
+  ghost: 'bg-transparent text-black1 hover:bg-gray5',
+  danger: 'bg-transparent text-red1 hover:bg-red2',
 }
 
 const isDisabled = computed(() => props.disabled)

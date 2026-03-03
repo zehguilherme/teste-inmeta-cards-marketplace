@@ -34,15 +34,41 @@
       </header>
 
       <main
-        class="border-gray1 flex flex-wrap items-center justify-center gap-6 rounded-b-lg border border-t-0 bg-white p-4 md:justify-start"
+        class="border-gray1 flex flex-col gap-6 rounded-b-lg border border-t-0 bg-white p-4 sm:flex-row"
       >
-        <CardHome
-          v-for="carta in listaCartas"
-          :key="carta.id"
-          :image-url="carta.card.imageUrl"
-          :image-alternative-text="carta.card.description"
-          :action-text="carta.type"
-        />
+        <div class="flex flex-col gap-4">
+          <h3 class="text-black2 text-[18px] font-bold">Oferecendo</h3>
+
+          <div class="grid auto-cols-auto justify-center gap-6 lg:grid-cols-2">
+            <CardHome
+              v-for="carta in listaCartasTipoOferecendo"
+              :key="carta.id"
+              :image-url="carta.card.imageUrl"
+              :image-alternative-text="carta.card.description"
+              :action-text="carta.type"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center">
+          <div class="bg-gray4 border-gray1 rounded-full border p-2.5">
+            <Arrows class="text-gray2 h-5 w-5" />
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <h3 class="text-black2 text-[18px] font-bold">Recebendo</h3>
+
+          <div class="grid auto-cols-auto justify-center gap-6 lg:grid-cols-2">
+            <CardHome
+              v-for="carta in listaCartasTipoRecebendo"
+              :key="carta.id"
+              :image-url="carta.card.imageUrl"
+              :image-alternative-text="carta.card.description"
+              :action-text="carta.type"
+            />
+          </div>
+        </div>
       </main>
     </div>
   </div>
@@ -55,9 +81,10 @@ import { format } from 'date-fns'
 import CardHome from './CardHome.vue'
 import Button from './Button.vue'
 import Clock from './icons/Clock.vue'
-import type { Trade, TradeCard } from '@/types/Trade'
+import Arrows from './icons/Arrows.vue'
 import Trash from './icons/Trash.vue'
 import { useAuthStore } from '@/stores/auth'
+import type { Trade, TradeCard } from '@/types/Trade'
 
 const { createdAt, user, userId, tradeCards } = defineProps<Trade>()
 
@@ -70,6 +97,14 @@ const emit = defineEmits(['removerSolicitacaoTroca'])
 const removerSolicitacaoTroca = () => {
   emit('removerSolicitacaoTroca')
 }
+
+const listaCartasTipoOferecendo = computed(() => {
+  return listaCartas.value.filter((carta) => carta.type === 'OFFERING')
+})
+
+const listaCartasTipoRecebendo = computed(() => {
+  return listaCartas.value.filter((carta) => carta.type === 'RECEIVING')
+})
 
 const solicitacaoTrocaPertenceUsuario = computed(() => {
   if (userId === authStore.usuario?.id) {

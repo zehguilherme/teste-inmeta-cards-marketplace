@@ -34,7 +34,7 @@
           <Button
             v-if="usuarioEstaLogado"
             variant="ghost"
-            @click="authStore.logout"
+            @click="deslogarUsuario"
             class="text-gray2"
           >
             <template v-slot:icon>
@@ -75,6 +75,12 @@ import { useAuthStore } from '@/stores/auth'
 const router = useRouter()
 
 const authStore = useAuthStore()
+
+const deslogarUsuario = () => {
+  authStore.logout()
+
+  router.push('/')
+}
 
 const usuarioEstaLogado = computed(() => {
   if (!authStore.autenticado || authStore.usuario === null) {

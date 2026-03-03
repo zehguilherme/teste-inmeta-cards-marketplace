@@ -7,7 +7,7 @@
     />
 
     <div class="mx-auto max-w-342">
-      <header class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div class="mb-2 flex flex-col gap-2 sm:mb-0">
           <h1 class="text-black2 text-3xl font-bold">Nova Solicitação de Troca</h1>
 
@@ -24,9 +24,9 @@
         >
           Publicar Troca
         </Button>
-      </header>
+      </div>
 
-      <main class="flex flex-col flex-wrap gap-8 sm:flex-row">
+      <section class="flex flex-col flex-wrap gap-8 sm:flex-row">
         <TradeCards
           title="Suas Cartas"
           :selected-cards-quantity="listaCartasUsuarioPossuiSelecionadas.length"
@@ -42,7 +42,7 @@
           :lista-cartas="listaTodasCartasExistentes || []"
           v-model="listaCartasUsuarioBuscaSelecionadas"
         />
-      </main>
+      </section>
     </div>
   </div>
 </template>

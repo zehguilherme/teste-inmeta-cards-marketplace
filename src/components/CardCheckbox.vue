@@ -5,7 +5,7 @@
   >
     <input type="checkbox" :checked="isSelected" class="sr-only" @change="toggleCard" />
 
-    <img :src="card.imageUrl" :alt="card.description" class="rounded-lg" />
+    <img :src="card.imageUrl" :alt="card.description" loading="lazy" class="rounded-lg" />
   </label>
 </template>
 

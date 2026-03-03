@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div class="mx-auto max-w-342">
-      <header
+      <div
         class="border-gray1 flex flex-col justify-between gap-2 rounded-lg rounded-b-none border bg-zinc-50 p-4 sm:flex-row sm:items-center sm:gap-0"
       >
         <div class="flex items-center gap-2">
@@ -31,9 +31,9 @@
 
           Remover
         </Button>
-      </header>
+      </div>
 
-      <main
+      <div
         class="border-gray1 flex flex-col gap-6 rounded-b-lg border border-t-0 bg-white p-4 sm:flex-row"
       >
         <div class="flex flex-col gap-4">
@@ -69,7 +69,7 @@
             />
           </div>
         </div>
-      </main>
+      </div>
     </div>
   </div>
 </template>

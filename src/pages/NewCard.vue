@@ -7,7 +7,7 @@
     />
 
     <div class="mx-auto max-w-342">
-      <header class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div class="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div class="mb-2 flex flex-col gap-2 sm:mb-0">
           <h1 class="text-black2 text-3xl font-bold">Nova Carta</h1>
 
@@ -28,16 +28,16 @@
         >
           Confirmar escolha
         </Button>
-      </header>
+      </div>
 
-      <main class="flex flex-wrap items-center justify-center gap-4 md:justify-start">
+      <section class="flex flex-wrap items-center justify-center gap-4 md:justify-start">
         <CardCheckbox
           v-for="carta in listaTodasCartasExcetoAsQueUsuarioJaPossui"
           :key="carta.id"
           :card="carta"
           v-model="listaCartasSelecionadas"
         />
-      </main>
+      </section>
     </div>
   </div>
 </template>

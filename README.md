@@ -13,9 +13,9 @@ Clique [aqui](https://mature-crowberry-3fc.notion.site/Teste-INMETA-Front-End-Pl
 - [x] Usuário deve poder se registrar
 - [x] Usuário deve poder fazer login
 - [x] O usuário pode adicionar cartas a sua própria conta
-- [ ] O usuário pode criar uma solicitação de troca
-  - [ ] Ele deve escolher quais cartas da sua conta que pretende oferecer
-  - [ ] Deve poder escolher entre todas as cartas registradas quais ele quer receber
+- [x] O usuário pode criar uma solicitação de troca
+  - [x] Ele deve escolher quais cartas da sua conta que pretende oferecer
+  - [x] Deve poder escolher entre todas as cartas registradas quais ele quer receber
 - [ ] O usuário deve poder deletar solicitações de troca que criou
 - [x] Todos usuários e visitantes tem acesso a pagina inicial de marketplace mostrando as solicitações de troca abertas
 
@@ -65,8 +65,7 @@ Nenhum desses requisitos é obrigatório, mas são desejados e podem ser um dife
 
 ## Layout
 
-- O layout foi criado utilizando a inteligência artificial [Replit](https://replit.com), e você pode acessá-lo [aqui](https://replit.com/@zehguilherme/Cards-Marketplace).
-- A versão final do site gerado pela IA que foi usado como base para esse projeto pode ser acessada [aqui](https://cards-marketplace--zehguilherme.replit.app/).
+- O layout foi criado utilizando a inteligência artificial [Replit](https://replit.com), e a versão final do site gerado pela IA que foi usado como base para esse projeto pode ser acessada [aqui](https://cards-marketplace--zehguilherme.replit.app/).
 
 _PS: Alguns pontos do design foram modificados para melhor atender as necessidades do projeto, mas a essência do design foi mantida._
 

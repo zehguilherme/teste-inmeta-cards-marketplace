@@ -6,6 +6,11 @@
       :mensagem="mensagemErro"
     />
 
+    <DeleteConfirmationModal
+      v-model:model-value="modalExclusaoSolicitacaoAberta"
+      @excluir-solicitacao-troca="excluirSolicitacaoTroca(modelSolicitacaoTroca?.id || '')"
+    />
+
     <div class="mx-auto max-w-342">
       <header class="mb-10 flex flex-col gap-2">
         <h1 class="text-black2 text-3xl font-bold">Marketplace</h1>
@@ -25,6 +30,7 @@
             :created-at="solicitacao.createdAt"
             :user="solicitacao.user"
             :trade-cards="solicitacao.tradeCards"
+            @remover-solicitacao-troca="abrirModalConfirmacaoExclusaoSolicitacao(solicitacao)"
           />
         </template>
 
@@ -37,12 +43,15 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import axios, { AxiosError } from 'axios'
+import { useToast } from 'vue-toastification'
 
 import SwapSolicitation from '@/components/SwapSolicitation.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
 import NoSwapSolicitations from '@/components/NoSwapSolicitations.vue'
 import { useLoadingStore } from '@/stores/loading'
+import { useAuthStore } from '@/stores/auth'
 import type { Trade } from '@/types/Trade'
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 
 interface TradeListResponse {
   list: Trade[]
@@ -55,9 +64,63 @@ const modalErroAberta = ref<boolean>(false)
 const tituloErro = ref<string>('')
 const mensagemErro = ref<string>('')
 
+const modalExclusaoSolicitacaoAberta = ref<boolean>(false)
+
+const modelSolicitacaoTroca = ref<Trade>()
+
 const listaSolicitacoesTroca = ref<Trade[]>([])
 
 const loadingStore = useLoadingStore()
+const authStore = useAuthStore()
+
+const toast = useToast()
+
+const abrirModalConfirmacaoExclusaoSolicitacao = (solicitacaoTroca: Trade) => {
+  modalExclusaoSolicitacaoAberta.value = true
+
+  modelSolicitacaoTroca.value = solicitacaoTroca
+}
+
+const excluirSolicitacaoTroca = async (idSolicitacaoTroca: string) => {
+  try {
+    loadingStore.exibir('Removendo solicitação de troca...')
+
+    const response = await axios.delete(
+      `${import.meta.env.VITE_API_URL}/trades/${idSolicitacaoTroca}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`,
+        },
+      },
+    )
+
+    if (response.status !== 200) {
+      modalErroAberta.value = true
+
+      tituloErro.value = 'Erro'
+      mensagemErro.value = 'Ocorreu um erro ao remover a solicitação de troca!'
+
+      return
+    }
+
+    toast.success('Solicitação de troca removida com sucesso!')
+
+    modalExclusaoSolicitacaoAberta.value = false
+
+    await carregarSolicitacoesTroca()
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      mensagemErro.value =
+        error.response?.data?.message || 'Ocorreu um erro ao remover a solicitação de troca!'
+    } else if (error instanceof Error) {
+      mensagemErro.value = error.message || 'Ocorreu um erro ao remover a solicitação de troca!'
+    } else {
+      mensagemErro.value = 'Ocorreu um erro ao remover a solicitação de troca!'
+    }
+  } finally {
+    loadingStore.esconder()
+  }
+}
 
 const carregarSolicitacoesTroca = async () => {
   try {
@@ -95,8 +158,8 @@ const listaSolicitacoesTrocaComputed = computed(() => {
   return listaSolicitacoesTroca.value
 })
 
-onMounted(() => {
-  carregarSolicitacoesTroca()
+onMounted(async () => {
+  await carregarSolicitacoesTroca()
 })
 </script>
 

@@ -15,7 +15,7 @@
       </p>
 
       <div class="flex flex-col gap-2 sm:flex-row sm:justify-end">
-        <Button variant="ghost" @click="fecharModal">Cancelar</Button>
+        <Button variant="ghost" @click="fecharModal" class="order-1 sm:order-0">Cancelar</Button>
 
         <Button @click="excluirSolicitacaoTroca">Remover</Button>
       </div>

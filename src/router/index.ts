@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { useAuthStore } from '@/stores/auth'
+
 import Home from '../pages/Home.vue'
 import Register from '../pages/Register.vue'
 import Login from '../pages/Login.vue'
@@ -37,6 +39,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: routes,
+})
+
+const rotasProtegidas = ['/minhas-cartas', '/minhas-cartas/nova-carta', '/nova-troca']
+
+router.beforeEach((to) => {
+  const authStore = useAuthStore()
+
+  if (rotasProtegidas.includes(to.path) && !authStore.autenticado) {
+    return '/'
+  }
 })
 
 export default router

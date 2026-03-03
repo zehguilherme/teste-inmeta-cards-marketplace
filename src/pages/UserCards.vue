@@ -100,8 +100,8 @@ const carregarCartasUsuario = async () => {
   }
 }
 
-onMounted(() => {
-  carregarCartasUsuario()
+onMounted(async () => {
+  await carregarCartasUsuario()
 })
 </script>
 

@@ -91,16 +91,16 @@ const hasMore = ref(false)
 const retrocederPagina = async () => {
   page.value--
 
-  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+  await carregarTodasCartasExistentes()
 }
 
 const avancarPagina = async () => {
   page.value++
 
-  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+  await carregarTodasCartasExistentes()
 }
 
-const carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui = async () => {
+const carregarTodasCartasExistentes = async () => {
   try {
     loadingStore.exibir('Carregando cartas...')
 
@@ -182,7 +182,7 @@ const adicionarCartaListaUsuario = async () => {
 }
 
 onMounted(async () => {
-  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+  await carregarTodasCartasExistentes()
 })
 </script>
 

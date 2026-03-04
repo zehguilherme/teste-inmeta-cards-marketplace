@@ -18,8 +18,8 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
-onMounted(() => {
-  authStore.carregarUsuarioAutenticado()
+onMounted(async () => {
+  await authStore.carregarUsuarioAutenticado()
 })
 </script>
 

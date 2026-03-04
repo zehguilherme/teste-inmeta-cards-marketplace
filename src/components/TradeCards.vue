@@ -1,10 +1,12 @@
 <template>
-  <section class="border-gray1 flex-1 rounded-lg border p-5">
+  <section class="border-gray1 max-h-max flex-1 rounded-lg border p-5">
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-black2 text-[18px] font-bold">{{ title }}</h2>
 
       <span class="text-gray2 text-[12px] font-bold">
-        {{ selectedCardsQuantity }}/{{ allCardsQuantity }}
+        {{ selectedCardsQuantity }}
+        {{ selectedCardsQuantity === 1 ? 'carta' : 'cartas' }}
+        {{ selectedCardsQuantity === 1 ? 'selecionada' : 'selecionadas' }}
       </span>
     </div>
 
@@ -26,7 +28,6 @@ import CardCheckbox from './CardCheckbox.vue'
 defineProps<{
   title: string
   selectedCardsQuantity: number
-  allCardsQuantity: number
   listaCartas: Card[]
 }>()
 

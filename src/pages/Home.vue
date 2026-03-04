@@ -35,6 +35,14 @@
         </template>
 
         <NoSwapSolicitations v-else message="Ainda não há solicitações de troca" />
+
+        <Pagination
+          v-if="listaSolicitacoesTrocaComputed.length > 0"
+          :page="page"
+          :more="hasMore"
+          @retroceder-pagina="retrocederPagina"
+          @avancar-pagina="avancarPagina"
+        />
       </section>
     </div>
   </div>
@@ -48,10 +56,11 @@ import { useToast } from 'vue-toastification'
 import SwapSolicitation from '@/components/SwapSolicitation.vue'
 import ErrorModal from '@/components/ErrorModal.vue'
 import NoSwapSolicitations from '@/components/NoSwapSolicitations.vue'
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
+import Pagination from '@/components/Pagination.vue'
 import { useLoadingStore } from '@/stores/loading'
 import { useAuthStore } from '@/stores/auth'
 import type { Trade } from '@/types/Trade'
-import DeleteConfirmationModal from '@/components/DeleteConfirmationModal.vue'
 
 interface TradeListResponse {
   list: Trade[]
@@ -74,6 +83,21 @@ const loadingStore = useLoadingStore()
 const authStore = useAuthStore()
 
 const toast = useToast()
+
+const page = ref(1)
+const hasMore = ref(false)
+
+const retrocederPagina = async () => {
+  page.value--
+
+  await carregarSolicitacoesTroca()
+}
+
+const avancarPagina = async () => {
+  page.value++
+
+  await carregarSolicitacoesTroca()
+}
 
 const abrirModalConfirmacaoExclusaoSolicitacao = (solicitacaoTroca: Trade) => {
   modalExclusaoSolicitacaoAberta.value = true
@@ -127,7 +151,7 @@ const carregarSolicitacoesTroca = async () => {
     loadingStore.exibir('Carregando solicitações de troca...')
 
     const response = await axios.get<TradeListResponse>(
-      `${import.meta.env.VITE_API_URL}/trades?rpp=9999&page=1`,
+      `${import.meta.env.VITE_API_URL}/trades?rpp=5&page=${page.value}`,
     )
 
     if (response.status !== 200) {
@@ -140,6 +164,8 @@ const carregarSolicitacoesTroca = async () => {
     }
 
     listaSolicitacoesTroca.value = response.data.list
+
+    hasMore.value = response.data.more
   } catch (error) {
     if (error instanceof AxiosError) {
       mensagemErro.value =

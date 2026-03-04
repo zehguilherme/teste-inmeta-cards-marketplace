@@ -4,7 +4,7 @@
 
 ## 💬 Descrição
 
-O projeto é um marketplace para troca de cartas, onde os usuários podem se registrar, fazer login, adicionar cartas à sua conta e criar solicitações de troca. O objetivo é permitir que os usuários troquem suas cartas com outros usuários de forma fácil e segura.
+O projeto é um marketplace para troca de cartas, onde os usuários podem se registrar, fazer login, adicionar cartas à sua conta e criar solicitações de troca. O objetivo é permitir que os usuários troquem suas cartas com as demais cadastradas no sistema de forma fácil e rápida.
 
 Clique [aqui](https://mature-crowberry-3fc.notion.site/Teste-INMETA-Front-End-Pleno-22c926b5830d80c0bab4e93ac82f3db7) para acessar o desafio.
 
@@ -50,10 +50,14 @@ Nenhum desses requisitos é obrigatório, mas são desejados e podem ser um dife
    Utilizei a plataforma [Vercel](https://vercel.com/) que já possui internamente toda uma estrutura de CI/CD para garantir que o deploy ocorra sem problemas. A aplicação em produção pode ser acessada [aqui](https://teste-inmeta-cards-marketplace.vercel.app/).
 
 2. **Cache:** você implementaria cache em alguma parte da aplicação?
+   - Sim, principalmente nas páginas em que há o carregamento de muitos dados no formato de lista como nas páginas: **"Minhas Cartas"**, **"Nova Solicitação de Troca"** e **"Nova Carta"**.
+   - No caso delas, o cache seria importante para diminuir a quantidade de vezes em que são feitas consultas a API sem necessidade, como no exemplo em que a lista de cartas do usuário não é alterada durante um tempo, então, nesse meio tempo, não é necessário consultar a API para buscar novos dados, apenas quando for detectado alguma alteração nela
+   - Evitaria usar cache em dados muito dinâmicos ou críticos (como na página **"Home"**) para não comprometer a consistência das informações que são importantes com que sejam consultadas sempre bem atualizadas
 
 ## Ferramentas e tecnologias utilizadas
 
 - [Vue](https://vuejs.org/) - Biblioteca usada para construção de interfaces
+- [Vue Router](https://router.vuejs.org/) - Biblioteca de gerenciamento de rotas
 - [TypeScript](https://www.typescriptlang.org/) - Conjunto de pacotes que adiciona tipagem estática à linguagem JavaScript
 - [Google Fonts](https://fonts.google.com/) - Biblioteca contendo diversas fontes
 - [Tailwind CSS](https://tailwindcss.com/) - Framework CSS para estilização
@@ -62,6 +66,9 @@ Nenhum desses requisitos é obrigatório, mas são desejados e podem ser um dife
 - [Pinia](https://pinia.vuejs.org) - Biblioteca para gerenciamento de estado
 - [VeeValidate](https://vee-validate.logaretm.com) - Biblioteca para validação de formulários
 - [Yup](https://www.npmjs.com/package/yup) - Biblioteca para construção de esquemas de validação e análise de valores
+- [Prettier](https://prettier.io/) - Formatador de código "opinativo" e automático, utilizado para garantir um estilo consistente
+- [ESLint](https://eslint.org/) - Ferramenta de análise estática de código (linter) open-source para JavaScript e TypeScript
+- [Vue Toastification](https://vue-toastification.maronato.dev/) - Biblioteca para Vue.js, criada para exibir notificações pop-up ("toasts") simples, rápidas e amigáveis ao usuário
 
 ## Layout
 

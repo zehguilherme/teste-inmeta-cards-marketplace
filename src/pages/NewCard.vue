@@ -30,14 +30,22 @@
         </Button>
       </div>
 
-      <section class="flex flex-wrap items-center justify-center gap-4 md:justify-start">
+      <section class="mb-10 flex flex-wrap items-center justify-center gap-4 md:justify-start">
         <CardCheckbox
-          v-for="carta in listaTodasCartasExcetoAsQueUsuarioJaPossui"
+          v-for="carta in listaTodasCartasExistentes"
           :key="carta.id"
           :card="carta"
           v-model="listaCartasSelecionadas"
         />
       </section>
+
+      <Pagination
+        v-if="listaTodasCartasExistentes.length > 0"
+        :page="page"
+        :more="hasMore"
+        @retroceder-pagina="retrocederPagina"
+        @avancar-pagina="avancarPagina"
+      />
     </div>
   </div>
 </template>
@@ -51,6 +59,7 @@ import axios, { AxiosError } from 'axios'
 import ErrorModal from '@/components/ErrorModal.vue'
 import Button from '@/components/Button.vue'
 import CardCheckbox from '@/components/CardCheckbox.vue'
+import Pagination from '@/components/Pagination.vue'
 import { useLoadingStore } from '@/stores/loading'
 import { useAuthStore } from '@/stores/auth'
 import type { Card } from '@/types/Card'
@@ -67,7 +76,7 @@ const tituloErro = ref<string>('')
 const mensagemErro = ref<string>('')
 
 const listaCartasSelecionadas = ref<string[]>([])
-const listaTodasCartasExcetoAsQueUsuarioJaPossui = ref<Card[]>([])
+const listaTodasCartasExistentes = ref<Card[]>([])
 
 const loadingStore = useLoadingStore()
 const authStore = useAuthStore()
@@ -76,12 +85,27 @@ const toast = useToast()
 
 const router = useRouter()
 
+const page = ref(1)
+const hasMore = ref(false)
+
+const retrocederPagina = async () => {
+  page.value--
+
+  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+}
+
+const avancarPagina = async () => {
+  page.value++
+
+  await carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui()
+}
+
 const carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui = async () => {
   try {
     loadingStore.exibir('Carregando cartas...')
 
     const response = await axios.get<CardsListResponse>(
-      `${import.meta.env.VITE_API_URL}/cards?rpp=9999&page=1`,
+      `${import.meta.env.VITE_API_URL}/cards?rpp=10&page=${page.value}`,
     )
 
     if (response.status !== 200) {
@@ -93,13 +117,9 @@ const carregarTodasCartasExistentesExcetoAsQueUsuarioJaPossui = async () => {
       return
     }
 
-    const listaTodasCartasExistentes = response.data.list
+    listaTodasCartasExistentes.value = response.data.list
 
-    const userCardIds = authStore.usuario?.cards.map((carta) => carta.id) || []
-
-    listaTodasCartasExcetoAsQueUsuarioJaPossui.value = listaTodasCartasExistentes.filter(
-      (carta) => !userCardIds.includes(carta.id),
-    )
+    hasMore.value = response.data.more
   } catch (error) {
     if (error instanceof AxiosError) {
       mensagemErro.value =

@@ -13,7 +13,7 @@
 
     <div class="mx-auto max-w-342">
       <div class="mb-10 flex flex-col gap-2">
-        <h1 class="text-black2 text-3xl font-bold">Marketplace</h1>
+        <h1 class="text-black2 text-3xl font-bold">Marketplace para troca de cartas</h1>
 
         <p class="text-gray2 text-[16px]">
           Explore as solicitações de troca abertas pela comunidade.

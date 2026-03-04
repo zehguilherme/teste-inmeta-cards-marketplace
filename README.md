@@ -30,7 +30,7 @@ Acompanhe o andamento de todos os itens por [aqui](https://github.com/users/zehg
   - React
 - [x] Deve conter Typescript
 - [x] Deve conter tratamento de erros
-- Deve conter validação de formulários
+- [x] Deve conter validação de formulários
 - [x] Deve conter gerenciamento de estado
   - [x] Pinia (Vue)
   - Zustand (React)

@@ -30,18 +30,26 @@
         <TradeCards
           title="Suas Cartas"
           :selected-cards-quantity="listaCartasUsuarioPossuiSelecionadas.length"
-          :all-cards-quantity="authStore.usuario?.cards.length || 0"
           :lista-cartas="authStore.usuario?.cards || []"
           v-model="listaCartasUsuarioPossuiSelecionadas"
         />
 
-        <TradeCards
-          title="O que você busca?"
-          :selected-cards-quantity="listaCartasUsuarioBuscaSelecionadas.length"
-          :all-cards-quantity="listaTodasCartasExistentes.length || 0"
-          :lista-cartas="listaTodasCartasExistentes || []"
-          v-model="listaCartasUsuarioBuscaSelecionadas"
-        />
+        <div class="flex flex-1 flex-col gap-4">
+          <TradeCards
+            title="O que você busca?"
+            :selected-cards-quantity="listaCartasUsuarioBuscaSelecionadas.length"
+            :lista-cartas="listaTodasCartasExistentes || []"
+            v-model="listaCartasUsuarioBuscaSelecionadas"
+          />
+
+          <Pagination
+            v-if="listaTodasCartasExistentes.length > 0"
+            :page="page"
+            :more="hasMore"
+            @retroceder-pagina="retrocederPagina"
+            @avancar-pagina="avancarPagina"
+          />
+        </div>
       </section>
     </div>
   </div>
@@ -56,6 +64,7 @@ import axios, { AxiosError } from 'axios'
 import ErrorModal from '@/components/ErrorModal.vue'
 import Button from '@/components/Button.vue'
 import TradeCards from '@/components/TradeCards.vue'
+import Pagination from '@/components/Pagination.vue'
 import { useLoadingStore } from '@/stores/loading'
 import { useAuthStore } from '@/stores/auth'
 import type { Card } from '@/types/Card'
@@ -82,12 +91,27 @@ const toast = useToast()
 
 const router = useRouter()
 
+const page = ref(1)
+const hasMore = ref(false)
+
+const retrocederPagina = async () => {
+  page.value--
+
+  await carregarTodasCartasExistentes()
+}
+
+const avancarPagina = async () => {
+  page.value++
+
+  await carregarTodasCartasExistentes()
+}
+
 const carregarTodasCartasExistentes = async () => {
   try {
     loadingStore.exibir('Carregando cartas...')
 
     const response = await axios.get<CardsListResponse>(
-      `${import.meta.env.VITE_API_URL}/cards?rpp=9999&page=1`,
+      `${import.meta.env.VITE_API_URL}/cards?rpp=10&page=${page.value}`,
     )
 
     if (response.status !== 200) {
@@ -100,6 +124,8 @@ const carregarTodasCartasExistentes = async () => {
     }
 
     listaTodasCartasExistentes.value = response.data.list
+
+    hasMore.value = response.data.more
   } catch (error) {
     if (error instanceof AxiosError) {
       mensagemErro.value =

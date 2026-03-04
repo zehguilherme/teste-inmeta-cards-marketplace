@@ -6,7 +6,7 @@
 
     <h2 class="text-gray2 mb-2 text-center text-[20px] font-semibold">Coleção vazia</h2>
 
-    <p class="text-gray2 text-center text-[14px]">Clique em "Nova Carta" para começar.</p>
+    <p class="text-gray2 text-center text-[14px]">Adicione algumas cartas ao seu acervo.</p>
   </div>
 </template>
 

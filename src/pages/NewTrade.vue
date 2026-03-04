@@ -28,11 +28,18 @@
 
       <section class="flex flex-col flex-wrap gap-8 sm:flex-row">
         <TradeCards
+          v-if="listaCartasUsuario?.length > 0"
           title="Suas Cartas"
           :selected-cards-quantity="listaCartasUsuarioPossuiSelecionadas.length"
-          :lista-cartas="authStore.usuario?.cards || []"
+          :lista-cartas="listaCartasUsuario"
           v-model="listaCartasUsuarioPossuiSelecionadas"
         />
+
+        <div v-else class="border-gray1 flex max-h-max flex-1 flex-col gap-4 rounded-lg border p-5">
+          <h2 class="text-black2 text-[18px] font-bold">Suas Cartas</h2>
+
+          <NoUserCards class="h-full" />
+        </div>
 
         <div class="flex flex-1 flex-col gap-4">
           <TradeCards
@@ -65,6 +72,7 @@ import ErrorModal from '@/components/ErrorModal.vue'
 import Button from '@/components/Button.vue'
 import TradeCards from '@/components/TradeCards.vue'
 import Pagination from '@/components/Pagination.vue'
+import NoUserCards from '@/components/NoUserCards.vue'
 import { useLoadingStore } from '@/stores/loading'
 import { useAuthStore } from '@/stores/auth'
 import type { Card } from '@/types/Card'
@@ -81,6 +89,7 @@ const tituloErro = ref<string>('')
 const mensagemErro = ref<string>('')
 
 const listaTodasCartasExistentes = ref<Card[]>([])
+const listaCartasUsuario = ref<Card[]>([])
 const listaCartasUsuarioPossuiSelecionadas = ref<string[]>([])
 const listaCartasUsuarioBuscaSelecionadas = ref<string[]>([])
 
@@ -108,7 +117,7 @@ const avancarPagina = async () => {
 
 const carregarTodasCartasExistentes = async () => {
   try {
-    loadingStore.exibir('Carregando cartas...')
+    loadingStore.exibir('Carregando todas as cartas...')
 
     const response = await axios.get<CardsListResponse>(
       `${import.meta.env.VITE_API_URL}/cards?rpp=10&page=${page.value}`,
@@ -195,8 +204,39 @@ const criarNovaSolicitacaoTroca = async () => {
   }
 }
 
+const carregarCartasUsuario = async () => {
+  try {
+    loadingStore.exibir('Carregando suas cartas...')
+
+    const response = await axios.get<Card[]>(
+      `${import.meta.env.VITE_API_URL}/me/cards`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${authStore.token}`,
+        },
+      },
+    )
+
+    listaCartasUsuario.value = response.data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      mensagemErro.value =
+        error.response?.data?.message || 'Ocorreu um erro ao carregar as suas cartas!'
+    } else if (error instanceof Error) {
+      mensagemErro.value = error.message || 'Ocorreu um erro ao carregar as suas cartas!'
+    } else {
+      mensagemErro.value = 'Ocorreu um erro ao carregar as suas cartas!'
+    }
+  } finally {
+    loadingStore.esconder()
+  }
+}
+
 onMounted(async () => {
   await carregarTodasCartasExistentes()
+
+  await carregarCartasUsuario()
 })
 </script>
 

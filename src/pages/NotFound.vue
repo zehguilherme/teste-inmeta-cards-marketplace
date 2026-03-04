@@ -9,7 +9,7 @@
         <p class="text-gray2 text-lg">Página não encontrada!</p>
       </div>
 
-      <Button @click="navigateToHome">Voltar para a Home</Button>
+      <Button @click="navegarParaHome">Voltar para a Home</Button>
     </div>
   </main>
 </template>
@@ -22,7 +22,7 @@ import Button from '@/components/Button.vue'
 
 const router = useRouter()
 
-const navigateToHome = () => {
+const navegarParaHome = () => {
   router.push('/')
 }
 </script>

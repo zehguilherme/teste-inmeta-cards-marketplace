@@ -8,6 +8,7 @@ import Login from '../pages/Login.vue'
 import UserCards from '../pages/UserCards.vue'
 import NewCard from '../pages/NewCard.vue'
 import NewTrade from '../pages/NewTrade.vue'
+import NotFound from '../pages/NotFound.vue'
 
 const routes = [
   {
@@ -33,6 +34,14 @@ const routes = [
   {
     path: '/nova-troca',
     component: NewTrade,
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404',
+  },
+  {
+    path: '/404',
+    component: NotFound,
   },
 ]
 

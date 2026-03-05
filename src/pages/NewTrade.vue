@@ -151,6 +151,10 @@ const carregarTodasCartasExistentes = async () => {
 
     hasMore.value = response.data.more
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao carregar as cartas do sistema!'
@@ -195,7 +199,7 @@ const criarNovaSolicitacaoTroca = async () => {
       modalErroAberta.value = true
 
       tituloErro.value = 'Erro'
-      mensagemErro.value = 'Ocorreu um erro ao adicionar ao criar a solicitação de troca!'
+      mensagemErro.value = 'Ocorreu um erro ao criar a solicitação de troca!'
 
       return
     }
@@ -204,15 +208,17 @@ const criarNovaSolicitacaoTroca = async () => {
 
     router.push('/')
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
-        error.response?.data?.message ||
-        'Ocorreu um erro ao adicionar ao criar a solicitação de troca!'
+        error.response?.data?.message || 'Ocorreu um erro ao criar a solicitação de troca!'
     } else if (error instanceof Error) {
-      mensagemErro.value =
-        error.message || 'Ocorreu um erro ao adicionar ao criar a solicitação de troca!'
+      mensagemErro.value = error.message || 'Ocorreu um erro ao criar a solicitação de troca!'
     } else {
-      mensagemErro.value = 'Ocorreu um erro ao adicionar ao criar a solicitação de troca!'
+      mensagemErro.value = 'Ocorreu um erro ao criar a solicitação de troca!'
     }
   } finally {
     loadingStore.esconder()
@@ -233,8 +239,21 @@ const carregarCartasUsuario = async () => {
       },
     )
 
+    if (response.status !== 200) {
+      modalErroAberta.value = true
+
+      tituloErro.value = 'Erro'
+      mensagemErro.value = 'Ocorreu um erro ao carregar as suas cartas!'
+
+      return
+    }
+
     listaCartasUsuario.value = response.data
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao carregar as suas cartas!'

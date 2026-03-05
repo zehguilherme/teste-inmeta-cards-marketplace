@@ -101,8 +101,21 @@ const carregarCartasUsuario = async () => {
       },
     )
 
+    if (response.status !== 200) {
+      modalErroAberta.value = true
+
+      tituloErro.value = 'Erro'
+      mensagemErro.value = 'Ocorreu um erro ao carregar as suas cartas!'
+
+      return
+    }
+
     listaCartas.value = response.data
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao carregar as suas cartas!'

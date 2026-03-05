@@ -133,6 +133,10 @@ const excluirSolicitacaoTroca = async (idSolicitacaoTroca: string) => {
 
     await carregarSolicitacoesTroca()
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao remover a solicitação de troca!'

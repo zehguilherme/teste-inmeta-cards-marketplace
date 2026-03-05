@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-4 py-8">
+  <div class="bg-white px-4 pt-8 pb-28 md:pb-8">
     <ErrorModal
       v-model:model-value="modalErroAberta"
       :titulo="tituloErro"
@@ -23,7 +23,7 @@
 
         <Button
           :disabled="listaCartasSelecionadas.length === 0"
-          class="h-10 px-4 py-2 text-[14px] font-semibold"
+          class="hidden h-10 px-4 py-2 text-[14px] font-semibold md:flex"
           @click="adicionarCartaListaUsuario"
         >
           Confirmar escolha
@@ -46,6 +46,18 @@
         @retroceder-pagina="retrocederPagina"
         @avancar-pagina="avancarPagina"
       />
+
+      <div
+        class="fixed right-0 bottom-0 left-0 bg-white p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden"
+      >
+        <Button
+          :disabled="listaCartasSelecionadas.length === 0"
+          class="h-12 w-full text-[16px] font-semibold"
+          @click="adicionarCartaListaUsuario"
+        >
+          Confirmar escolha
+        </Button>
+      </div>
     </div>
   </div>
 </template>
@@ -136,7 +148,9 @@ const carregarTodasCartasExistentes = async () => {
 
 const adicionarCartaListaUsuario = async () => {
   try {
-    loadingStore.exibir('Adicionando carta(s)...')
+    loadingStore.exibir(
+      listaCartasSelecionadas.value.length > 1 ? 'Adicionando cartas...' : 'Adicionando carta...',
+    )
 
     const response = await axios.post(
       `${import.meta.env.VITE_API_URL}/me/cards`,
@@ -161,7 +175,7 @@ const adicionarCartaListaUsuario = async () => {
 
     toast.success(
       listaCartasSelecionadas.value.length > 1
-        ? 'Carta(s) adicionada(s) com sucesso!'
+        ? 'Cartas adicionadas com sucesso!'
         : 'Carta adicionada com sucesso!',
     )
 

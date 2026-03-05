@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white px-4 py-8">
+  <div class="bg-white px-4 pt-8 pb-28 md:pb-8">
     <ErrorModal
       v-model:model-value="modalErroAberta"
       :titulo="tituloErro"
@@ -19,7 +19,7 @@
             listaCartasUsuarioPossuiSelecionadas.length === 0 ||
             listaCartasUsuarioBuscaSelecionadas.length === 0
           "
-          class="h-10 px-4 py-2 text-[14px] font-semibold"
+          class="hidden h-10 px-4 py-2 text-[14px] font-semibold md:flex"
           @click="criarNovaSolicitacaoTroca"
         >
           Publicar Troca
@@ -58,6 +58,21 @@
           />
         </div>
       </section>
+
+      <div
+        class="fixed right-0 bottom-0 left-0 bg-white p-4 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] md:hidden"
+      >
+        <Button
+          :disabled="
+            listaCartasUsuarioPossuiSelecionadas.length === 0 ||
+            listaCartasUsuarioBuscaSelecionadas.length === 0
+          "
+          class="h-12 w-full text-[16px] font-semibold"
+          @click="criarNovaSolicitacaoTroca"
+        >
+          Publicar Troca
+        </Button>
+      </div>
     </div>
   </div>
 </template>

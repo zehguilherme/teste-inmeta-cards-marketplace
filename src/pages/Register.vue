@@ -143,7 +143,8 @@ const cadastrarUsuario = async (values: GenericObject | User) => {
       modalErroAberta.value = true
 
       tituloErro.value = 'Erro'
-      mensagemErro.value = 'Ocorreu um erro ao cadastrar o usuário!'
+      mensagemErro.value =
+        'Ocorreu um erro ao cadastrar o usuário! Verifique os dados e tente novamente!'
 
       return
     }

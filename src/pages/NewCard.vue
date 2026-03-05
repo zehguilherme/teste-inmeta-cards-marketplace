@@ -133,6 +133,10 @@ const carregarTodasCartasExistentes = async () => {
 
     hasMore.value = response.data.more
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao carregar as cartas do sistema!'
@@ -181,6 +185,10 @@ const adicionarCartaListaUsuario = async () => {
 
     router.push('/minhas-cartas')
   } catch (error) {
+    modalErroAberta.value = true
+
+    tituloErro.value = 'Erro'
+
     if (error instanceof AxiosError) {
       mensagemErro.value =
         error.response?.data?.message || 'Ocorreu um erro ao adicionar a(s) carta(s) ao seu acervo!'

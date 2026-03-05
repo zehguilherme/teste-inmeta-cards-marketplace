@@ -1,12 +1,22 @@
 <template>
-  <label
-    class="w-full max-w-50 cursor-pointer rounded-lg hover:border-4 hover:border-red-700 hover:p-2"
-    :class="isSelected && 'border-4 border-red-700 p-2'"
+  <button
+    type="button"
+    class="w-full max-w-50 cursor-pointer touch-manipulation rounded-lg select-none"
+    :class="
+      isSelected
+        ? 'border-4 border-red-700 p-2'
+        : 'sm:hover:border-4 sm:hover:border-red-700 sm:hover:p-2'
+    "
+    style="-webkit-tap-highlight-color: transparent"
+    @click="toggleCard"
   >
-    <input type="checkbox" :checked="isSelected" class="sr-only" @change="toggleCard" />
-
-    <img :src="card.imageUrl" :alt="card.description" loading="lazy" class="rounded-lg" />
-  </label>
+    <img
+      :src="card.imageUrl"
+      :alt="card.description"
+      loading="lazy"
+      class="pointer-events-none rounded-lg"
+    />
+  </button>
 </template>
 
 <script lang="ts" setup>
